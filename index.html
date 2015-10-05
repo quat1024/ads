@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <title>sup</title>
+    
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="box box1">
+        <div class="mainHeader smallHeader">
+          let's talk about
+        </div>
+        <div class="mainHeader bigHeader">
+          <mark>advertising.</mark>
+        </div>
+      </div>
+      <div class="box box2" id="box2">
+        <canvas id="box2bg"></canvas>
+        <h2>the state of ads</h2>
+        <div class="text introText">Advertising today is <i>taking over</i> modern society! Brands are all we care about. Phrases like <b style="animation-delay: -1s;">buy one, get one free!</b><br/> and <b style="animation-delay: -3s;">50% off!</b> and <b style="animation-delay: -2.3s;">get it today!</b> are repeated so much, they're almost completely meaningless.</div>
+        <div class="bottomText emboss">What can be done about this?</div>
+      </div>
+      <div class="box box3">
+        <h2>hey man</h2>
+      </div>
+      <div class="box box4">
+        <h2>sup</h2>
+      </div>
+    </div>
+    <script src="./processing.js"></script>
+    <script type="text/processing" data-processing-target="box2bg">
+    /* @pjs preload="./res/android.png,./res/apple.png,./res/facebook.png,./res/ge.png,./res/google.png,./res/instagram.png,./res/lays.png,./res/nike.png,./res/ps.png,./res/skype.png,./res/snapchat.png,./res/twitter.png,./res/windows.png,./res/youtube.png" */
+
+String[] urls={"./res/android.png","./res/apple.png","./res/facebook.png","./res/ge.png","./res/google.png","./res/instagram.png","./res/lays.png","./res/nike.png","./res/ps.png","./res/skype.png","./res/snapchat.png","./res/twitter.png","./res/windows.png","./res/youtube.png"};
+PImage[] images = new PImage[urls.length];
+void setup() {
+  size(900,900);
+  background(68,68,68);
+  frameRate(15); //let's not eat too much performance
+  
+  for(int i=0; i < urls.length;i++) {
+    images[i] = loadImage(urls[i],"png");
+   }
+}
+  
+void draw() {
+  fill(random(10,90));
+  noStroke();
+  
+  var docWidth = document.getElementById("box2").clientWidth;
+  var docHeight = document.getElementById("box2").clientHeight;
+  if(width !== docWidth) { //prevent sketch distortion
+    externals.canvas.width = docWidth;
+    externals.canvas.height = docHeight;
+    width = docWidth;
+    height = docHeight;
+  }
+  
+  for(var i=0; i<15; i++) {
+    var pic = floor(random(0,images.length));
+    pushMatrix();
+    translate(random(width),random(height));
+    rotate(random(0,TWO_PI));
+    scale(random(0.5,1.5));
+    image(images[pic]);
+    popMatrix();
+  }
+}
+
+    </script>
+  </body>
+</html>
